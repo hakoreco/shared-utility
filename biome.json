@@ -1,0 +1,120 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.2.6/schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedKeys": "off",
+        "useSortedProperties": "off"
+      }
+    }
+  },
+  "vcs": {
+    "clientKind": "git",
+    "enabled": true,
+    "useIgnoreFile": true,
+    "defaultBranch": "main"
+  },
+  "files": {
+    "includes": [
+      "**/*.js",
+      "**/*.jsx",
+      "**/*.cjs",
+      "**/*.mjs",
+      "**/*.ts",
+      "**/*.tsx",
+      "**/*.cts",
+      "**/*.mts",
+      "**/*.json",
+      "**/*.gql",
+      "**/*.graphql",
+      "!package.json",
+      "!package-lock.json"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "useEditorconfig": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "a11y": {},
+      "complexity": {
+        "noForEach": "off",
+        "noUselessStringConcat": "error",
+        "noVoid": "error"
+      },
+      "correctness": {
+        "noUndeclaredVariables": "error",
+        "useUniqueElementIds": "off",
+        "noUnusedImports": "warn",
+        "noUnusedVariables": {
+          "level": "error",
+          "fix": "none",
+          "options": {}
+        },
+        "noUnusedFunctionParameters": {
+          "level": "warn",
+          "fix": "none",
+          "options": {}
+        },
+        "useHookAtTopLevel": "error"
+      },
+      "nursery": {
+        "useConsistentArrowReturn": {
+          "level": "error",
+          "options": {
+            "style": "always"
+          }
+        },
+        "noNextAsyncClientComponent": "error",
+        "useReactFunctionComponents": "error",
+        "useSortedClasses": "error"
+      },
+      "performance": {
+        "noImgElement": "off"
+      },
+      "recommended": true,
+      "security": {
+        "noDangerouslySetInnerHtml": "error",
+        "noDangerouslySetInnerHtmlWithChildren": "error"
+      },
+      "style": {
+        "useConst": "error",
+        "noDescendingSpecificity": "error",
+        "noEnum": "error",
+        "noInferrableTypes": "error",
+        "noNegationElse": "error",
+        "noParameterAssign": "error",
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "useAsConstAssertion": "error",
+        "useBlockStatements": "error",
+        "useConsistentArrayType": "error",
+        "useDefaultParameterLast": "error",
+        "useEnumInitializers": "error",
+        "useNamingConvention": "off",
+        "useNumberNamespace": "error",
+        "useSelfClosingElements": "error",
+        "useSingleVarDeclarator": "error"
+      },
+      "suspicious": {
+        "noArrayIndexKey": "off",
+        "noConsole": {
+          "level": "info",
+          "fix": "none",
+          "options": {}
+        },
+        "noDuplicateCustomProperties": "error",
+        "noDuplicateProperties": "error",
+        "noEmptyBlockStatements": "error",
+        "noExplicitAny": "warn",
+        "noIrregularWhitespace": "error",
+        "useNumberToFixedDigitsArgument": "error"
+      }
+    }
+  }
+}

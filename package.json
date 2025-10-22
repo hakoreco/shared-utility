@@ -1,0 +1,55 @@
+{
+	"name": "shared-utility",
+	"version": "1.0.0",
+	"main": "dist/index.cjs",
+	"module": "dist/index.mjs",
+	"types": "dist/index.d.ts",
+	"files": ["dist"],
+	"sideEffects": false,
+	"exports": {
+		".": {
+			"types": "./dist/index.d.ts",
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.cjs"
+		},
+		"./react": {
+			"types": "./dist/react.d.ts",
+			"import": "./dist/react.mjs",
+			"require": "./dist/react.cjs",
+			"default": "./dist/react.cjs"
+		}
+	},
+	"scripts": {
+		"build": "tsup --format esm,cjs --dts --sourcemap --clean --splitting false",
+		"vitest": "vitest run",
+		"vitest:coverage": "vitest run --coverage"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/hakoreco/shared-utility.git"
+	},
+	"author": "https://github.com/hakoreco",
+	"bugs": {
+		"url": "https://github.com/hakoreco/shared-utility/issues"
+	},
+	"homepage": "https://github.com/hakoreco/shared-utility#readme",
+	"devDependencies": {
+		"@biomejs/biome": "^2.2.6",
+		"@testing-library/react": "^16.3.0",
+		"@types/node": "^24.9.1",
+		"@types/react": "^19.2.2",
+		"@vitest/coverage-v8": "^3.2.4",
+		"jsdom": "^27.0.1",
+		"react": "^19.2.0",
+		"tsup": "^8.5.0",
+		"typescript": "^5.9.3",
+		"vitest": "^3.2.4"
+	},
+	"dependencies": {
+		"html-react-parser": "^5.2.7"
+	},
+	"peerDependencies": {
+		"react": ">=18.0.0 <20.0.0"
+	}
+}
