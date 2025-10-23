@@ -139,6 +139,21 @@ function stripHtml(text) {
   return text.replace(/(<([^>]+)>)/gi, "").replace(/&[a-z]+;/gi, "");
 }
 
+// src/type-check/is-boolean.ts
+function isBoolean(data) {
+  return typeof data === "boolean";
+}
+
+// src/type-check/is-number.ts
+function isNumber(data) {
+  return typeof data === "number";
+}
+
+// src/type-check/is-string.ts
+function isString(data) {
+  return typeof data === "string";
+}
+
 // src/type-check/is-undefined.ts
 function isUndefined(data) {
   return typeof data === "undefined";
@@ -148,6 +163,9 @@ export {
   arrayCleaning,
   castToNumber,
   getRequest,
+  isBoolean,
+  isNumber,
+  isString,
   isUndefined,
   mergeClasses,
   postRequest,
