@@ -1,2 +1,2 @@
-export type { HtmlStringToReactResult } from "../utils/html-string-to-react";
-export { htmlStringToReact } from "../utils/html-string-to-react";
+export type { HtmlStringToReactResult } from "./html-string-to-react";
+export { htmlStringToReact } from "./html-string-to-react";

@@ -34,7 +34,7 @@ __export(react_exports, {
 });
 module.exports = __toCommonJS(react_exports);
 
-// src/utils/html-string-to-react.ts
+// src/react/html-string-to-react.ts
 var import_html_react_parser = __toESM(require("html-react-parser"));
 var React = __toESM(require("react"));
 var isScriptNode = (domNode) => {

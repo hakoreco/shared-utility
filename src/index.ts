@@ -1,16 +1,23 @@
-export type { RemovableValues } from "./utils/array-cleaning";
-export { arrayCleaning } from "./utils/array-cleaning";
-export { castToNumber } from "./utils/cast-to-number";
+export type { RemovableValues } from "./array-cleaning";
+export { arrayCleaning } from "./array-cleaning";
+export { castToNumber } from "./cast-to-number";
+export type { ClassNameCandidate } from "./merge-classes";
+export { mergeClasses } from "./merge-classes";
 export type {
+  ErrorResult,
   Fetcher,
-  GetRequestFailure,
-  GetRequestOptions,
-  GetRequestParser,
-  GetRequestResult,
-  GetRequestSuccess,
-} from "./utils/get-request";
-export { getRequest } from "./utils/get-request";
-export type { ClassNameCandidate } from "./utils/merge-classes";
-export { mergeClasses } from "./utils/merge-classes";
-export { stripHtml } from "./utils/strip-html";
-export { isUndefined } from "./utils/type-check/is-undefined";
+  RequestFailure,
+  RequestParser,
+  RequestResult,
+  RequestSuccess,
+} from "./request";
+export { RESPONSE_STATUS } from "./request";
+export type { GetRequestOptions } from "./request/get";
+export { getRequest } from "./request/get";
+export type { PostRequestOptions } from "./request/post";
+export { postRequest } from "./request/post";
+export { stripHtml } from "./strip-html";
+export { isBoolean } from "./type-check/is-boolean";
+export { isNumber } from "./type-check/is-number";
+export { isString } from "./type-check/is-string";
+export { isUndefined } from "./type-check/is-undefined";

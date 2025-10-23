@@ -1,4 +1,4 @@
-// src/utils/html-string-to-react.ts
+// src/react/html-string-to-react.ts
 import parse from "html-react-parser";
 import * as React from "react";
 var isScriptNode = (domNode) => {

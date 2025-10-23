@@ -22,20 +22,13 @@
 	},
 	"scripts": {
 		"build": "tsup --format esm,cjs --dts --sourcemap --clean --splitting false",
+    "biome": "biome check --write .",
 		"vitest": "vitest run",
 		"vitest:coverage": "vitest run --coverage"
 	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/hakoreco/shared-utility.git"
-	},
 	"author": "https://github.com/hakoreco",
-	"bugs": {
-		"url": "https://github.com/hakoreco/shared-utility/issues"
-	},
-	"homepage": "https://github.com/hakoreco/shared-utility#readme",
 	"devDependencies": {
-		"@biomejs/biome": "^2.2.6",
+		"@biomejs/biome": "^2.2.7",
 		"@testing-library/react": "^16.3.0",
 		"@types/node": "^24.9.1",
 		"@types/react": "^19.2.2",
@@ -51,5 +44,8 @@
 	},
 	"peerDependencies": {
 		"react": ">=18.0.0 <20.0.0"
-	}
+	},
+  "engines": {
+    "node": "24.10.0"
+  }
 }
