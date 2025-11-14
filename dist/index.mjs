@@ -44,7 +44,12 @@ var generateRequestFailure = (code, message) => {
 
 // src/request/get.ts
 async function getRequest(url, options = {}) {
-  const { fetch: customFetch, init, parser = defaultParser } = options;
+  const {
+    fetch: customFetch,
+    init,
+    parser = defaultParser,
+    timeout = 3e3
+  } = options;
   const fetcher = customFetch ?? globalThis.fetch;
   if (typeof fetcher !== "function") {
     return generateRequestFailure(
@@ -54,6 +59,7 @@ async function getRequest(url, options = {}) {
   }
   try {
     const response = await fetcher(url, {
+      signal: AbortSignal.timeout(timeout),
       ...init,
       method: "GET"
     });
@@ -86,7 +92,8 @@ async function postRequest(url, options = {}) {
     body,
     headers,
     parser = defaultParser,
-    serialize
+    serialize,
+    timeout = 3e3
   } = options;
   const fetcher = customFetch ?? globalThis.fetch;
   if (typeof fetcher !== "function") {
@@ -111,6 +118,7 @@ async function postRequest(url, options = {}) {
       baseHeaders.set("Content-type", "application/json");
     }
     const response = await fetcher(url, {
+      signal: AbortSignal.timeout(timeout),
       ...init,
       body: payload ?? null,
       headers: baseHeaders,

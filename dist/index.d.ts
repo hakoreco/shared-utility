@@ -51,6 +51,7 @@ type GetRequestOptions<T> = {
     fetch?: Fetcher;
     init?: Omit<RequestInit, "method">;
     parser?: RequestParser<T>;
+    timeout?: number;
 };
 /**
  * `fetch` を用いた GET リクエストを発行し、JSON などのレスポンスを取得する。
@@ -69,6 +70,7 @@ type PostRequestOptions<T, B> = {
     headers?: HeadersInit;
     parser?: RequestParser<T>;
     serialize?: (body: B) => BodyInit | null | undefined;
+    timeout?: number;
 };
 /**
  * `fetch` を用いた POST リクエストを発行し、レスポンスを取得する。
