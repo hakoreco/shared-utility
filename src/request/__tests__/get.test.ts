@@ -49,6 +49,82 @@ describe("getRequest", () => {
     });
   });
 
+  test("指定したタイムアウトでリクエストが中断される（1）", async () => {
+    vi.useFakeTimers();
+
+    try {
+      const fetchMock = vi.fn(
+        async (_url: RequestInfo | URL, init?: RequestInit) => {
+          expect(init?.signal).toBeInstanceOf(AbortSignal);
+
+          return new Promise<Response>((_resolve, reject) => {
+            init?.signal?.addEventListener("abort", () => {
+              const error = new Error("Request aborted by timeout");
+              error.name = "AbortError";
+              reject(error);
+            });
+          });
+        },
+      );
+
+      const responsePromise = getRequest("https://api.localhost", {
+        fetch: fetchMock,
+        timeout: 1000,
+      });
+
+      await vi.advanceTimersByTimeAsync(1500);
+      const response = await responsePromise;
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(response.ok).toBe(false);
+      expect((response as RequestFailure).error).toEqual({
+        code: "UNKNOWN_ERROR",
+        message: "Request aborted by timeout",
+      });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  test("指定したタイムアウトでリクエストが中断される（2）", async () => {
+    vi.useFakeTimers();
+
+    try {
+      const fetchMock = vi.fn(
+        async (_url: RequestInfo | URL, init?: RequestInit) => {
+          expect(init?.signal).toBeInstanceOf(AbortSignal);
+
+          return new Promise<Response>((_resolve, reject) => {
+            init?.signal?.addEventListener("abort", () => {
+              const error = new Error("Request aborted by timeout");
+              error.name = "AbortError";
+              reject(error);
+            });
+          });
+        },
+      );
+
+      const responsePromise = getRequest("https://api.localhost", {
+        fetch: fetchMock,
+        init: {
+          signal: AbortSignal.timeout(1000),
+        },
+      });
+
+      await vi.advanceTimersByTimeAsync(1500);
+      const response = await responsePromise;
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(response.ok).toBe(false);
+      expect((response as RequestFailure).error).toEqual({
+        code: "UNKNOWN_ERROR",
+        message: "Request aborted by timeout",
+      });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   test("fetchが存在しない環境ではエラーを返す", async () => {
     const originalFetch = global.fetch;
     // @ts-expect-error 故意に undefined を代入して挙動を確認する

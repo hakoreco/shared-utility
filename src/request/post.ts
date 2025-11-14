@@ -15,6 +15,7 @@ export type PostRequestOptions<T, B> = {
   headers?: HeadersInit;
   parser?: RequestParser<T>;
   serialize?: (body: B) => BodyInit | null | undefined;
+  timeout?: number;
 };
 
 const isBodyInit = (body: unknown): body is BodyInit => {
@@ -47,6 +48,7 @@ export async function postRequest<T = unknown, B = unknown>(
     headers,
     parser = defaultParser<T>,
     serialize,
+    timeout = 3000,
   } = options;
   const fetcher: Fetcher | undefined = customFetch ?? globalThis.fetch;
 
@@ -75,6 +77,7 @@ export async function postRequest<T = unknown, B = unknown>(
     }
 
     const response = await fetcher(url, {
+      signal: AbortSignal.timeout(timeout),
       ...init,
       body: payload ?? null,
       headers: baseHeaders,

@@ -101,6 +101,78 @@ describe("postRequest", () => {
     });
   });
 
+  test("POSTリクエストがタイムアウトした場合にエラーを返す（1）", async () => {
+    vi.useFakeTimers();
+
+    try {
+      const fetchMock = vi.fn(
+        async (_url: RequestInfo | URL, init?: RequestInit) => {
+          expect(init?.signal).toBeInstanceOf(AbortSignal);
+
+          return new Promise<Response>((_resolve, reject) => {
+            init?.signal?.addEventListener("abort", () => {
+              reject(new Error("Post request aborted by timeout"));
+            });
+          });
+        },
+      );
+
+      const responsePromise = postRequest("https://api.localhost", {
+        fetch: fetchMock,
+        timeout: 1000,
+      });
+
+      await vi.advanceTimersByTimeAsync(1500);
+      const response = await responsePromise;
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(response.ok).toBe(false);
+      expect((response as RequestFailure).error).toEqual({
+        code: "UNKNOWN_ERROR",
+        message: "Post request aborted by timeout",
+      });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  test("POSTリクエストがタイムアウトした場合にエラーを返す（2）", async () => {
+    vi.useFakeTimers();
+
+    try {
+      const fetchMock = vi.fn(
+        async (_url: RequestInfo | URL, init?: RequestInit) => {
+          expect(init?.signal).toBeInstanceOf(AbortSignal);
+
+          return new Promise<Response>((_resolve, reject) => {
+            init?.signal?.addEventListener("abort", () => {
+              reject(new Error("Post request aborted by timeout"));
+            });
+          });
+        },
+      );
+
+      const responsePromise = postRequest("https://api.localhost", {
+        fetch: fetchMock,
+        init: {
+          signal: AbortSignal.timeout(1000),
+        },
+      });
+
+      await vi.advanceTimersByTimeAsync(1500);
+      const response = await responsePromise;
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+      expect(response.ok).toBe(false);
+      expect((response as RequestFailure).error).toEqual({
+        code: "UNKNOWN_ERROR",
+        message: "Post request aborted by timeout",
+      });
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   test("fetchが存在しない環境ではエラーを返す", async () => {
     const originalFetch = global.fetch;
     // @ts-expect-error テストのために fetch を未定義へ変更する

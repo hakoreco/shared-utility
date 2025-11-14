@@ -12,6 +12,7 @@ export type GetRequestOptions<T> = {
   fetch?: Fetcher;
   init?: Omit<RequestInit, "method">;
   parser?: RequestParser<T>;
+  timeout?: number;
 };
 
 /**
@@ -26,7 +27,12 @@ export async function getRequest<T = unknown>(
   url: string,
   options: GetRequestOptions<T> = {},
 ): Promise<RequestResult<T>> {
-  const { fetch: customFetch, init, parser = defaultParser<T> } = options;
+  const {
+    fetch: customFetch,
+    init,
+    parser = defaultParser<T>,
+    timeout = 3000,
+  } = options;
   const fetcher: Fetcher | undefined = customFetch ?? globalThis.fetch;
 
   if (typeof fetcher !== "function") {
@@ -38,6 +44,7 @@ export async function getRequest<T = unknown>(
 
   try {
     const response = await fetcher(url, {
+      signal: AbortSignal.timeout(timeout),
       ...init,
       method: "GET",
     });
