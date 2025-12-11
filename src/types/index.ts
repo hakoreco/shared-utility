@@ -14,7 +14,7 @@ export type IntEnumerate<
 /**
  * 数字を+1する
  *
- * @typeParam Int >= 数字
+ * @typeParam Int >=0 数字
  */
 export type PlusOne<
   Int extends number,
