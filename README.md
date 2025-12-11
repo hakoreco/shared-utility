@@ -5,7 +5,7 @@
 ## Getting Started
 
 ```bash
-npm install https://github.com/hakoreco/shared-utility.git#2.0.0
+npm install https://github.com/hakoreco/shared-utility.git#2.0.1
 ```
 
 ## Build
