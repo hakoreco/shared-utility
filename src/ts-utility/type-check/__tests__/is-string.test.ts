@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { isString } from "@/index";
+import { isString } from "@/ts-utility";
 
 describe("isString", () => {
   test("文字列を渡す", () => {

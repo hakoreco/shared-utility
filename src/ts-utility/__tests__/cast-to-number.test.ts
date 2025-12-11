@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { castToNumber } from "@/index";
+import { castToNumber } from "@/ts-utility";
 
 describe("castToNumber", () => {
   test("Falsyなデータを渡す", () => {

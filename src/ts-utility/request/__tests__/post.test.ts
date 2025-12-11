@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, test, vi } from "vitest";
-import { postRequest, type RequestFailure } from "@/index";
+import { postRequest, type RequestFailure } from "@/ts-utility";
 
 const mockData = { message: "This is mocking." };
 

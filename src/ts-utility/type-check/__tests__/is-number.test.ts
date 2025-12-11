@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { isNumber } from "@/index";
+import { isNumber } from "@/ts-utility";
 
 describe("isNumber", () => {
   test("数字を渡す", () => {

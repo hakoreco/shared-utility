@@ -1,6 +1,5 @@
 import { describe, expect, test } from "vitest";
-
-import { stripHtml } from "@/index";
+import { stripHtml } from "@/ts-utility";
 
 describe("stripHtml", () => {
   test("HTMLタグを含む文字列を渡す", () => {

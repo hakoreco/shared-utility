@@ -1,6 +1,5 @@
 import { expect, test } from "vitest";
-
-import { mergeClasses } from "@/index";
+import { mergeClasses } from "@/ts-utility";
 
 test("mergeClasses", () => {
   expect(mergeClasses(".example")).toBe(".example");

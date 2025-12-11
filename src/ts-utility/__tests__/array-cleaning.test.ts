@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { arrayCleaning } from "@/index";
+import { arrayCleaning } from "@/ts-utility";
 
 test("undefinedやnull、falseといったデータを配列から省く", () => {
   expect(arrayCleaning([0, 1, 2, 3])).toEqual([0, 1, 2, 3]);

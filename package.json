@@ -1,6 +1,6 @@
 {
 	"name": "shared-utility",
-	"version": "1.1.0",
+	"version": "2.0.0",
 	"main": "dist/index.cjs",
 	"module": "dist/index.mjs",
 	"types": "dist/index.d.ts",
@@ -13,6 +13,10 @@
 			"require": "./dist/index.cjs",
 			"default": "./dist/index.cjs"
 		},
+    "./types": {
+			"types": "./dist/types.d.ts",
+			"default": "./dist/types.d.ts"
+		},
 		"./react": {
 			"types": "./dist/react.d.ts",
 			"import": "./dist/react.mjs",
@@ -21,7 +25,7 @@
 		}
 	},
 	"scripts": {
-		"build": "tsup --format esm,cjs --dts --sourcemap --clean --splitting false",
+		"build": "tsup",
     "biome": "biome check --write .",
 		"vitest": "vitest run",
 		"vitest:coverage": "vitest run --coverage"
@@ -46,6 +50,6 @@
 		"react": ">=18.0.0 <20.0.0"
 	},
   "engines": {
-    "node": "24.10.0"
+    "node": ">=20 <25"
   }
 }

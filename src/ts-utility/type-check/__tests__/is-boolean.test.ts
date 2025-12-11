@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { isBoolean } from "@/index";
+import { isBoolean } from "@/ts-utility";
 
 describe("isBoolean", () => {
   test("真偽値を渡す", () => {

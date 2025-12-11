@@ -1,11 +1,11 @@
-// src/array-cleaning.ts
+// src/ts-utility/array-cleaning.ts
 function arrayCleaning(items) {
   return items.filter((item) => {
     return item !== void 0 && item !== null && item !== false;
   });
 }
 
-// src/cast-to-number.ts
+// src/ts-utility/cast-to-number.ts
 function castToNumber(data, fallbackData) {
   if (typeof data === "number") {
     return data;
@@ -19,12 +19,12 @@ function castToNumber(data, fallbackData) {
   return fallbackData;
 }
 
-// src/merge-classes.ts
+// src/ts-utility/merge-classes.ts
 function mergeClasses(...classes) {
   return arrayCleaning(classes).join(" ");
 }
 
-// src/request/index.ts
+// src/ts-utility/request/index.ts
 var RESPONSE_STATUS = {
   success: true,
   failure: false
@@ -42,7 +42,7 @@ var generateRequestFailure = (code, message) => {
   };
 };
 
-// src/request/get.ts
+// src/ts-utility/request/get.ts
 async function getRequest(url, options = {}) {
   const {
     fetch: customFetch,
@@ -81,7 +81,7 @@ async function getRequest(url, options = {}) {
   }
 }
 
-// src/request/post.ts
+// src/ts-utility/request/post.ts
 var isBodyInit = (body) => {
   return body instanceof Blob || body instanceof FormData || body instanceof URLSearchParams || body instanceof ReadableStream || body instanceof ArrayBuffer || ArrayBuffer.isView(body);
 };
@@ -142,27 +142,27 @@ async function postRequest(url, options = {}) {
   }
 }
 
-// src/strip-html.ts
+// src/ts-utility/strip-html.ts
 function stripHtml(text) {
   return text.replace(/(<([^>]+)>)/gi, "").replace(/&[a-z]+;/gi, "");
 }
 
-// src/type-check/is-boolean.ts
+// src/ts-utility/type-check/is-boolean.ts
 function isBoolean(data) {
   return typeof data === "boolean";
 }
 
-// src/type-check/is-number.ts
+// src/ts-utility/type-check/is-number.ts
 function isNumber(data) {
   return typeof data === "number";
 }
 
-// src/type-check/is-string.ts
+// src/ts-utility/type-check/is-string.ts
 function isString(data) {
   return typeof data === "string";
 }
 
-// src/type-check/is-undefined.ts
+// src/ts-utility/type-check/is-undefined.ts
 function isUndefined(data) {
   return typeof data === "undefined";
 }

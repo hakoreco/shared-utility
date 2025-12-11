@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { isUndefined } from "@/index";
+import { isUndefined } from "@/ts-utility";
 
 describe("isUndefined", () => {
   test("Undefinedを渡す", () => {
