@@ -16,7 +16,7 @@ export type { GetRequestOptions } from "./request/get";
 export { getRequest } from "./request/get";
 export type { PostRequestOptions } from "./request/post";
 export { postRequest } from "./request/post";
-export { stripHtml } from "./strip-html";
+export { stripHTML } from "./strip-html";
 export { isBoolean } from "./type-check/is-boolean";
 export { isNumber } from "./type-check/is-number";
 export { isString } from "./type-check/is-string";

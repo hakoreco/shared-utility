@@ -4,6 +4,6 @@
  * @param text - HTML を含む文字列
  * @returns タグと代表的なエンティティを取り除いた文字列
  */
-export function stripHtml(text: string): string {
+export function stripHTML(text: string): string {
   return text.replace(/(<([^>]+)>)/gi, "").replace(/&[a-z]+;/gi, "");
 }
