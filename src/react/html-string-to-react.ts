@@ -2,7 +2,7 @@ import type { DOMNode } from "html-react-parser";
 import parse from "html-react-parser";
 import * as React from "react";
 
-export type HtmlStringToReactResult = ReturnType<typeof parse>;
+export type HTMLStringToReactResult = ReturnType<typeof parse>;
 
 const isScriptNode = (domNode: DOMNode): boolean => {
   if ("type" in domNode && domNode.type === "script") {
@@ -22,7 +22,7 @@ const isScriptNode = (domNode: DOMNode): boolean => {
  * @param html - 変換対象の HTML 文字列
  * @returns React 要素、文字列、もしくは空配列
  */
-export function htmlStringToReact(html: string): HtmlStringToReactResult {
+export function htmlStringToReact(html: string): HTMLStringToReactResult {
   return parse(html, {
     replace: (domNode) => {
       if (isScriptNode(domNode)) {
