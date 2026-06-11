@@ -72,6 +72,8 @@ export async function postRequest<T = unknown, B = unknown>(
     }
 
     const baseHeaders = new Headers(headers);
+    // serialize が指定された場合は呼び出し側が Content-Type を管理する責任を持つ。
+    // isBodyInit（FormData・Blob 等）の場合はブラウザ・ランタイムが自動で設定するため上書きしない。
     if (
       !serialize &&
       !isBodyInit(body) &&
@@ -81,6 +83,8 @@ export async function postRequest<T = unknown, B = unknown>(
       baseHeaders.set("Content-Type", "application/json");
     }
 
+    // timeout と init.signal を AbortSignal.any() で結合することで、
+    // タイムアウトとユーザー指定のキャンセル（例：キャンセルボタン）を両立させる。
     const signals: AbortSignal[] = [AbortSignal.timeout(timeout)];
     if (init?.signal instanceof AbortSignal) {
       signals.push(init.signal);

@@ -43,6 +43,8 @@ export async function getRequest<T = unknown>(
   }
 
   try {
+    // timeout と init.signal を AbortSignal.any() で結合することで、
+    // タイムアウトとユーザー指定のキャンセル（例：キャンセルボタン）を両立させる。
     const signals: AbortSignal[] = [AbortSignal.timeout(timeout)];
     if (init?.signal instanceof AbortSignal) {
       signals.push(init.signal);

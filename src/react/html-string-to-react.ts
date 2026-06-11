@@ -4,6 +4,8 @@ import * as React from "react";
 
 export type HTMLStringToReactResult = ReturnType<typeof parse>;
 
+// html-react-parser のノード型は複数あり、要素種別のプロパティ名が異なる。
+// Text 系は `type`、Element 系は `name` にタグ名が入るため両方チェックする必要がある。
 const isScriptNode = (domNode: DOMNode): boolean => {
   if ("type" in domNode && domNode.type === "script") {
     return true;
