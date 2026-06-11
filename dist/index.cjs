@@ -30,7 +30,7 @@ __export(ts_utility_exports, {
   isUndefined: () => isUndefined,
   mergeClasses: () => mergeClasses,
   postRequest: () => postRequest,
-  stripHtml: () => stripHtml
+  stripHTML: () => stripHTML
 });
 module.exports = __toCommonJS(ts_utility_exports);
 
@@ -47,7 +47,7 @@ function castToNumber(data, fallbackData) {
     return data;
   }
   if (typeof data === "string") {
-    const parsedData = Number.parseInt(data, 10);
+    const parsedData = Number.parseFloat(data);
     if (!Number.isNaN(parsedData)) {
       return parsedData;
     }
@@ -94,15 +94,19 @@ async function getRequest(url, options = {}) {
     );
   }
   try {
+    const signals = [AbortSignal.timeout(timeout)];
+    if (init?.signal instanceof AbortSignal) {
+      signals.push(init.signal);
+    }
     const response = await fetcher(url, {
-      signal: AbortSignal.timeout(timeout),
       ...init,
+      signal: AbortSignal.any(signals),
       method: "GET"
     });
     if (!response.ok) {
       return generateRequestFailure(
         response.status.toString(),
-        response.statusText
+        response.statusText || `Request failed with status ${response.status}`
       );
     }
     return {
@@ -110,6 +114,9 @@ async function getRequest(url, options = {}) {
       ok: RESPONSE_STATUS.success
     };
   } catch (error) {
+    if (error instanceof Error && "digest" in error) {
+      throw error;
+    }
     if (error instanceof Error) {
       return generateRequestFailure("UNKNOWN_ERROR", error.message);
     }
@@ -141,21 +148,25 @@ async function postRequest(url, options = {}) {
   try {
     let payload;
     if (serialize) {
-      if (body) {
+      if (body != null) {
         payload = serialize(body);
       }
     } else if (isBodyInit(body)) {
       payload = body;
-    } else if (typeof body === "string") {
+    } else if (body != null) {
       payload = JSON.stringify(body);
     }
     const baseHeaders = new Headers(headers);
-    if (typeof body === "string" && !baseHeaders.has("Content-type")) {
-      baseHeaders.set("Content-type", "application/json");
+    if (!serialize && !isBodyInit(body) && body != null && !baseHeaders.has("Content-Type")) {
+      baseHeaders.set("Content-Type", "application/json");
+    }
+    const signals = [AbortSignal.timeout(timeout)];
+    if (init?.signal instanceof AbortSignal) {
+      signals.push(init.signal);
     }
     const response = await fetcher(url, {
-      signal: AbortSignal.timeout(timeout),
       ...init,
+      signal: AbortSignal.any(signals),
       body: payload ?? null,
       headers: baseHeaders,
       method: "POST"
@@ -163,7 +174,7 @@ async function postRequest(url, options = {}) {
     if (!response.ok) {
       return generateRequestFailure(
         response.status.toString(),
-        response.statusText
+        response.statusText || `Request failed with status ${response.status}`
       );
     }
     return {
@@ -171,6 +182,9 @@ async function postRequest(url, options = {}) {
       ok: RESPONSE_STATUS.success
     };
   } catch (error) {
+    if (error instanceof Error && "digest" in error) {
+      throw error;
+    }
     if (error instanceof Error) {
       return generateRequestFailure("UNKNOWN_ERROR", error.message);
     }
@@ -179,7 +193,7 @@ async function postRequest(url, options = {}) {
 }
 
 // src/ts-utility/strip-html.ts
-function stripHtml(text) {
+function stripHTML(text) {
   return text.replace(/(<([^>]+)>)/gi, "").replace(/&[a-z]+;/gi, "");
 }
 
@@ -214,6 +228,6 @@ function isUndefined(data) {
   isUndefined,
   mergeClasses,
   postRequest,
-  stripHtml
+  stripHTML
 });
 //# sourceMappingURL=index.cjs.map

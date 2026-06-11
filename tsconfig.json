@@ -19,6 +19,8 @@
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
+    // tsupのDTSビルドがbaseUrl:"."を自動注入するため（tsup側の制限）
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@/*": ["./src/*"]
     }

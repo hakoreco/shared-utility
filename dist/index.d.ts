@@ -9,7 +9,7 @@ type RemovableValues = false | null | undefined;
 declare function arrayCleaning<T>(items: readonly T[]): Exclude<T, RemovableValues>[];
 
 /**
- * 与えられた値を整数に変換する。変換できない場合はフォールバック値、もしくは `undefined` を返す。
+ * 与えられた値を数値に変換する。変換できない場合はフォールバック値、もしくは `undefined` を返す。
  *
  * @param data - 数値化を試みる値
  * @param fallbackData - 変換に失敗した際に返すフォールバック値
@@ -89,7 +89,7 @@ declare function postRequest<T = unknown, B = unknown>(url: string, options?: Po
  * @param text - HTML を含む文字列
  * @returns タグと代表的なエンティティを取り除いた文字列
  */
-declare function stripHtml(text: string): string;
+declare function stripHTML(text: string): string;
 
 /**
  * データが`boolean`型かチェックする。
@@ -127,4 +127,4 @@ declare function isString(data: unknown): data is string;
  */
 declare function isUndefined(data: unknown): data is undefined;
 
-export { type ClassNameCandidate, type ErrorResult, type Fetcher, type GetRequestOptions, type PostRequestOptions, RESPONSE_STATUS, type RemovableValues, type RequestFailure, type RequestParser, type RequestResult, type RequestSuccess, arrayCleaning, castToNumber, getRequest, isBoolean, isNumber, isString, isUndefined, mergeClasses, postRequest, stripHtml };
+export { type ClassNameCandidate, type ErrorResult, type Fetcher, type GetRequestOptions, type PostRequestOptions, RESPONSE_STATUS, type RemovableValues, type RequestFailure, type RequestParser, type RequestResult, type RequestSuccess, arrayCleaning, castToNumber, getRequest, isBoolean, isNumber, isString, isUndefined, mergeClasses, postRequest, stripHTML };
