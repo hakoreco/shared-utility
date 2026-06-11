@@ -106,6 +106,8 @@ export async function postRequest<T = unknown, B = unknown>(
       ok: RESPONSE_STATUS.success,
     } satisfies RequestSuccess<T>;
   } catch (error) {
+    // Next.js の notFound() / redirect() は digest プロパティを持つ特殊なエラーを throw する。
+    // catch で握りつぶすとルーティングが機能しなくなるため再スローする。
     if (error instanceof Error && "digest" in error) {
       throw error;
     }
