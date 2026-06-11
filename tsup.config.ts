@@ -1,9 +1,5 @@
 import { defineConfig } from "tsup";
 
-/**
- * 各エントリーポイントを単一ファイルにバンドルし、型定義とソースマップを生成する設定。
- * React 依存のAPIは `react` サブパスとして分離し、関連パッケージはバンドルに含めず利用側に委ねる。
- */
 export default defineConfig({
   entry: {
     index: "src/ts-utility/index.ts",

@@ -62,18 +62,23 @@ export async function postRequest<T = unknown, B = unknown>(
   try {
     let payload: BodyInit | null | undefined;
     if (serialize) {
-      if (body) {
+      if (body != null) {
         payload = serialize(body);
       }
     } else if (isBodyInit(body)) {
       payload = body;
-    } else if (typeof body === "string") {
+    } else if (body != null) {
       payload = JSON.stringify(body);
     }
 
     const baseHeaders = new Headers(headers);
-    if (typeof body === "string" && !baseHeaders.has("Content-type")) {
-      baseHeaders.set("Content-type", "application/json");
+    if (
+      !serialize &&
+      !isBodyInit(body) &&
+      body != null &&
+      !baseHeaders.has("Content-Type")
+    ) {
+      baseHeaders.set("Content-Type", "application/json");
     }
 
     const response = await fetcher(url, {

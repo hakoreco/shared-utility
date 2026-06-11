@@ -1,5 +1,5 @@
 /**
- * 与えられた値を整数に変換する。変換できない場合はフォールバック値、もしくは `undefined` を返す。
+ * 与えられた値を数値に変換する。変換できない場合はフォールバック値、もしくは `undefined` を返す。
  *
  * @param data - 数値化を試みる値
  * @param fallbackData - 変換に失敗した際に返すフォールバック値
@@ -16,7 +16,7 @@ export function castToNumber(
   }
 
   if (typeof data === "string") {
-    const parsedData = Number.parseInt(data, 10);
+    const parsedData = Number.parseFloat(data);
     if (!Number.isNaN(parsedData)) {
       return parsedData;
     }

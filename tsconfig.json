@@ -1,9 +1,11 @@
 {
   "include": ["./src"],
   "compilerOptions": {
+    "rootDir": ".",
     "outDir": "./dist",
-    "module": "nodenext",
-    "target": "esnext",
+    "module": "preserve",
+    "moduleResolution": "bundler",
+    "target": "es2020",
     "types": [],
     "sourceMap": true,
     "declaration": true,
@@ -12,15 +14,13 @@
     "exactOptionalPropertyTypes": true,
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": false,
+    "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-    "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "removeComments": false
+    }
   }
 }

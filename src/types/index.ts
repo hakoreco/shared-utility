@@ -39,10 +39,8 @@ export type MinMax<Min extends number, Max extends number> =
  * @typeParam Int >=0 対象の数字
  * @typeParam Max >=0 この数字未満の判定をする
  */
-export type LessThan<
-  Int extends number,
-  Max extends number,
-> = IntEnumerate<Int> extends Exclude<IntEnumerate<Max>, Max> ? true : false;
+export type LessThan<Int extends number, Max extends number> =
+  IntEnumerate<Int> extends Exclude<IntEnumerate<Max>, Max> ? true : false;
 
 /**
  * 渡された数字が対象の数字以下か判別する
@@ -50,10 +48,8 @@ export type LessThan<
  * @typeParam Int >=0 対象の数字
  * @typeParam Max >=0 この数字以下の判定をする
  */
-export type LessThanOrEqual<
-  Int extends number,
-  Max extends number,
-> = IntEnumerate<Int> extends IntEnumerate<Max> ? true : false;
+export type LessThanOrEqual<Int extends number, Max extends number> =
+  IntEnumerate<Int> extends IntEnumerate<Max> ? true : false;
 
 /**
  * 渡された数字が対象の数字超えか判別する
@@ -62,10 +58,7 @@ export type LessThanOrEqual<
  * @typeParam Min >=0 この数字超えか判定をする
  */
 export type GreaterThan<Int extends number, Min extends number> =
-  | IntEnumerate<Min>
-  | PlusOne<Min> extends IntEnumerate<Int>
-  ? true
-  : false;
+  IntEnumerate<Min> | PlusOne<Min> extends IntEnumerate<Int> ? true : false;
 
 /**
  * 渡された数字が対象の数字以上か判別する
@@ -73,7 +66,5 @@ export type GreaterThan<Int extends number, Min extends number> =
  * @typeParam Int >=0 対象の数字
  * @typeParam Min >=0 この数字以上の判定をする
  */
-export type GreaterThanOrEqual<
-  Int extends number,
-  Min extends number,
-> = IntEnumerate<Min> extends IntEnumerate<Int> ? true : false;
+export type GreaterThanOrEqual<Int extends number, Min extends number> =
+  IntEnumerate<Min> extends IntEnumerate<Int> ? true : false;

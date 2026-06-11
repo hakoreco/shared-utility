@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/2.2.7/schema.json",
+  "$schema": "https://biomejs.dev/schemas/2.4.16/schema.json",
   "assist": {
     "actions": {
       "source": {
@@ -62,17 +62,10 @@
           "fix": "none",
           "options": {}
         },
-        "useHookAtTopLevel": "error"
+        "useHookAtTopLevel": "error",
+        "noNextAsyncClientComponent": "error"
       },
       "nursery": {
-        "useConsistentArrowReturn": {
-          "level": "error",
-          "options": {
-            "style": "always"
-          }
-        },
-        "noNextAsyncClientComponent": "error",
-        "useReactFunctionComponents": "error",
         "useSortedClasses": "error"
       },
       "performance": {
@@ -100,7 +93,14 @@
         "useNamingConvention": "off",
         "useNumberNamespace": "error",
         "useSelfClosingElements": "error",
-        "useSingleVarDeclarator": "error"
+        "useSingleVarDeclarator": "error",
+        "useReactFunctionComponents": "error",
+        "useConsistentArrowReturn": {
+          "level": "error",
+          "options": {
+            "style": "always"
+          }
+        }
       },
       "suspicious": {
         "noArrayIndexKey": "off",

@@ -1,7 +1,5 @@
 # Shared utility
 
-[変更履歴](./CHANGELOG.md)
-
 ## Getting Started
 
 ```bash

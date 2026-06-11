@@ -34,6 +34,32 @@ describe("postRequest", () => {
     expect(response.data).toEqual(mockData);
   });
 
+  test("オブジェクトのボディをJSONとして自動シリアライズして送信", async () => {
+    const fetchMock = vi.fn(
+      async (_url: RequestInfo | URL, init?: RequestInit) => {
+        const headers = new Headers(init?.headers);
+
+        expect(init?.method).toBe("POST");
+        expect(init?.body).toBe('{"foo":"bar"}');
+        expect(headers.get("Content-Type")).toBe("application/json");
+
+        return new Response(JSON.stringify(mockData), { status: 200 });
+      },
+    );
+
+    const response = await postRequest<typeof mockData, { foo: string }>(
+      "https://api.localhost",
+      {
+        fetch: fetchMock,
+        body: { foo: "bar" },
+      },
+    );
+
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(response.ok).toBe(true);
+    expect(response.data).toEqual(mockData);
+  });
+
   test("fetchが失敗ステータスを返した場合にエラーを返す", async () => {
     const fetchMock = vi.fn(async () => {
       return new Response(null, { status: 500, statusText: "Server Error" });
