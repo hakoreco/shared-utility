@@ -200,9 +200,9 @@ describe("postRequest", () => {
   });
 
   test("fetchが存在しない環境ではエラーを返す", async () => {
-    const originalFetch = global.fetch;
+    const originalFetch = globalThis.fetch;
     // @ts-expect-error テストのために fetch を未定義へ変更する
-    global.fetch = undefined;
+    globalThis.fetch = undefined;
 
     const response = await postRequest("https://api.localhost");
 
@@ -212,6 +212,6 @@ describe("postRequest", () => {
       message: "Fetch API is not available in the current environment.",
     });
 
-    global.fetch = originalFetch;
+    globalThis.fetch = originalFetch;
   });
 });

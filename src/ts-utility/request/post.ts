@@ -81,9 +81,14 @@ export async function postRequest<T = unknown, B = unknown>(
       baseHeaders.set("Content-Type", "application/json");
     }
 
+    const signals: AbortSignal[] = [AbortSignal.timeout(timeout)];
+    if (init?.signal instanceof AbortSignal) {
+      signals.push(init.signal);
+    }
+
     const response = await fetcher(url, {
-      signal: AbortSignal.timeout(timeout),
       ...init,
+      signal: AbortSignal.any(signals),
       body: payload ?? null,
       headers: baseHeaders,
       method: "POST",
@@ -92,7 +97,7 @@ export async function postRequest<T = unknown, B = unknown>(
     if (!response.ok) {
       return generateRequestFailure(
         response.status.toString(),
-        response.statusText,
+        response.statusText || `Request failed with status ${response.status}`,
       );
     }
 
@@ -101,6 +106,10 @@ export async function postRequest<T = unknown, B = unknown>(
       ok: RESPONSE_STATUS.success,
     } satisfies RequestSuccess<T>;
   } catch (error) {
+    if (error instanceof Error && "digest" in error) {
+      throw error;
+    }
+
     if (error instanceof Error) {
       return generateRequestFailure("UNKNOWN_ERROR", error.message);
     }

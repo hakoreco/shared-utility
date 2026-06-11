@@ -43,16 +43,21 @@ export async function getRequest<T = unknown>(
   }
 
   try {
+    const signals: AbortSignal[] = [AbortSignal.timeout(timeout)];
+    if (init?.signal instanceof AbortSignal) {
+      signals.push(init.signal);
+    }
+
     const response = await fetcher(url, {
-      signal: AbortSignal.timeout(timeout),
       ...init,
+      signal: AbortSignal.any(signals),
       method: "GET",
     });
 
     if (!response.ok) {
       return generateRequestFailure(
         response.status.toString(),
-        response.statusText,
+        response.statusText || `Request failed with status ${response.status}`,
       );
     }
 
@@ -61,6 +66,10 @@ export async function getRequest<T = unknown>(
       ok: RESPONSE_STATUS.success,
     } satisfies RequestSuccess<T>;
   } catch (error) {
+    if (error instanceof Error && "digest" in error) {
+      throw error;
+    }
+
     if (error instanceof Error) {
       return generateRequestFailure("UNKNOWN_ERROR", error.message);
     }

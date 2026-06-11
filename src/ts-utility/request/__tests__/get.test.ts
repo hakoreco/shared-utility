@@ -9,7 +9,7 @@ describe("getRequest", () => {
   });
 
   test("正常にデータを取得", async () => {
-    vi.spyOn(global, "fetch").mockImplementation(async () => {
+    vi.spyOn(globalThis, "fetch").mockImplementation(async () => {
       return new Response(JSON.stringify(mockData), { status: 200 });
     });
 
@@ -19,7 +19,7 @@ describe("getRequest", () => {
   });
 
   test("データの取得に失敗", async () => {
-    vi.spyOn(global, "fetch").mockImplementation(async () => {
+    vi.spyOn(globalThis, "fetch").mockImplementation(async () => {
       return new Response(JSON.stringify(mockData), {
         status: 400,
         statusText: "Error",
@@ -36,7 +36,7 @@ describe("getRequest", () => {
   });
 
   test("不明なエラーが返ってくる場合", async () => {
-    vi.spyOn(global, "fetch").mockImplementation(() => {
+    vi.spyOn(globalThis, "fetch").mockImplementation(() => {
       throw "not Error";
     });
 
@@ -126,9 +126,9 @@ describe("getRequest", () => {
   });
 
   test("fetchが存在しない環境ではエラーを返す", async () => {
-    const originalFetch = global.fetch;
+    const originalFetch = globalThis.fetch;
     // @ts-expect-error 故意に undefined を代入して挙動を確認する
-    global.fetch = undefined;
+    globalThis.fetch = undefined;
 
     const response = await getRequest("https://api.localhost");
     expect(response.ok).toBe(false);
@@ -137,6 +137,6 @@ describe("getRequest", () => {
       message: "Fetch API is not available in the current environment.",
     });
 
-    global.fetch = originalFetch;
+    globalThis.fetch = originalFetch;
   });
 });
